@@ -1,0 +1,76 @@
+{
+    "$schema": "https://developer.microsoft.com/en-us/json-schemas/teams/v1.16/MicrosoftTeams.schema.json",
+    "manifestVersion": "1.16",
+    "version": "1.3.0",
+    "id": "E5565093-0FD5-4347-84F8-6DB5C24FCFA8",
+    "packageName": "com.axleinfo.sharepoint.urlbuilder",
+    "developer": {
+        "name": "Axle Info",
+        "websiteUrl": "https://axleinfo.com",
+        "privacyUrl": "https://axleinfo.com/privacy",
+        "termsOfUseUrl": "https://axleinfo.com/terms"
+    },
+    "name": {
+        "short": "E-RAG",
+        "full": "E-RAG for Teams Channels"
+    },
+    "description": {
+        "short": "E-RAG v1.3",
+        "full": "V1.3 - Teams tab that generates correct SharePoint document library URLs for both standard and private channels using Teams context. Uses actual SharePoint site URLs from Teams context for improved accuracy."
+    },
+    "icons": {
+        "outline": "outline.png",
+        "color": "color.png"
+    },
+    "accentColor": "#0078D4",
+    "configurableTabs": [
+        {
+            "configurationUrl": "https://rameshsubramania.github.io/e-rag/config.html",
+            "canUpdateConfiguration": false,
+            "scopes": [
+                "team",
+                "groupchat"
+            ],
+            "context": [
+                "channelTab",
+                "privateChatTab",
+                "meetingChatTab",
+                "meetingDetailsTab",
+                "meetingSidePanel"
+            ]
+        }
+    ],
+    "permissions": [
+        "identity",
+        "messageTeamMembers"
+    ],
+    "authorization": {
+        "permissions": {
+            "resourceSpecific": [
+                {
+                    "name": "Sites.ReadWrite.All",
+                    "type": "Application"
+                },
+                {
+                    "name": "Team.ReadBasic.All",
+                    "type": "Application"
+                },
+                {
+                    "name": "User.Read",
+                    "type": "Delegated"
+                }
+            ]
+        }
+    },
+    "validDomains": [
+        "rameshsubramania.github.io",
+        "*.sharepoint.com",
+        "*.login.microsoftonline.com",
+        "*.apps.powerapps.com",
+        "*.powerplatform.com"
+    ],
+    "webApplicationInfo": {
+        "id": "E5565093-0FD5-4347-84F8-6DB5C24FCFA8",
+        "resource": "https://graph.microsoft.com"
+    }
+}

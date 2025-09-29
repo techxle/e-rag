@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configure E-RAG</title>
+    <script src="https://res.cdn.office.net/teams-js/2.19.0/js/MicrosoftTeams.min.js"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #444;
+            margin-top: 0;
+        }
+        p {
+            color: #666;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>E-RAG <small style="font-size: 0.6em; color: #666;">v1.3</small></h1>
+        <p>This tab will help you generate SharePoint site URLs based on your Teams channel information.</p>
+        <p>Click Save to add this tab to your channel.</p>
+        <div id="debug" style="margin-top: 20px; padding: 10px; background: #f8f9fa; border-radius: 4px; font-family: monospace; font-size: 12px;">
+            <p style="margin: 0;">Status: <span id="status">Initializing...</span></p>
+        </div>
+    </div>
+    <script>
+        // Initialize Microsoft Teams SDK
+        document.getElementById('status').textContent = 'Initializing Teams SDK...';
+        microsoftTeams.app.initialize().then(() => {
+            console.log('Teams SDK initialized');
+            document.getElementById('status').textContent = 'Teams SDK initialized. Save button should be enabled.';
+            
+            // Enable the save button immediately after initialization
+            microsoftTeams.pages.config.setValidityState(true);
+            console.log('Save button enabled');
+
+            // Register save handler
+            microsoftTeams.pages.config.registerOnSaveHandler((saveEvent) => {
+                console.log('Save handler triggered');
+                
+                const baseUrl = window.location.origin + window.location.pathname.replace('config.html', '');
+                
+                const config = {
+                    suggestedDisplayName: "E-RAG",
+                    entityId: new Date().getTime().toString(),
+                    contentUrl: baseUrl + 'index.html',
+                    websiteUrl: baseUrl + 'index.html'
+                };
+                
+                console.log('Setting config:', config);
+                
+                microsoftTeams.pages.config.setConfig(config)
+                    .then(() => {
+                        console.log('Config set successfully');
+                        saveEvent.notifySuccess();
+                    })
+                    .catch(error => {
+                        console.error('Error setting config:', error);
+                        saveEvent.notifyFailure(error);
+                    });
+            });
+        }).catch(error => {
+            console.error('Error initializing Teams SDK:', error);
+        });
+    </script>
+</body>
+</html>
